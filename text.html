@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>page</title>
+
+    </head>
+    <body>
+        <label for="country">Country:</label>
+        <select id="country" onchange="populateStates()">
+         <option value="Ng">Nigeria</option>
+         Nigeria
+        <!-- Add country options here -->
+        </select> 
+
+        <label for="state">State:</label>
+        <select id="state" onchange="populateLocalGovt()">
+        <option value="">Select State</option>
+         <!-- State options will be populated dynamically -->
+        </select> 
+
+            <label for="localgovt">Local Government:</label>
+             <select id="localgovt">
+            <option value="">Select Local Government</option>
+            <!-- Local government options will be populated dynamically -->
+             </select>   
+
+        <script>
+                // Define an object containing country, state, and local government data
+        const data = {
+            countries: {
+                Ng:"Nigeria"
+            // Add country options here
+            },
+            states: {
+                Ng:{
+                     kwara:"kwara",
+                     kaduna:"kaduna",
+                     kano:"kano",
+                     katsina:"katsina"
+                }
+      
+                    // Add state options for each country here
+             },
+            localgovts: {
+                kwara:{
+                 offa:"offa",
+                 ife:"ifelodun",
+                 ire: "irepodun",
+                ilwest:"ilorin west"
+                },
+                kaduna:{
+                    igb: "igbai",
+                    zra:"zaria",
+                    kdn: "kaduna North",
+                    kds:"kaduna south"
+                },
+                 Kano:{
+                ktb: "kumbotso",
+                 trn:"tarauni",
+                yank:"yankaba",
+                gwr:"gwarzo"
+            }
+      // Add local government options for each state here
+        }
+    }; 
+  
+  // Function to populate the state dropdown based on the selected country
+  function populateStates() {
+    const countryDropdown = document.getElementById('country');
+    const stateDropdown = document.getElementById('state');
+    const localGovtDropdown = document.getElementById('localgovt'); 
+  
+    const selectedCountry = countryDropdown.value;
+    
+    // Clear the state and local government dropdowns
+    stateDropdown.innerHTML = '<option value="">Select State</option>';
+    localGovtDropdown.innerHTML = '<option value="">Select Local Government</option>'; 
+  
+    // Populate the state dropdown
+    if (selectedCountry) {
+      const states = data.states[selectedCountry];
+      for (const state in states) {
+        const option = document.createElement('option');
+        option.value = state;
+        option.text = states[state];
+        stateDropdown.appendChild(option);
+      }
+    }
+  } 
+  
+  // Function to populate the local government dropdown based on the selected state
+  function populateLocalGovt() {
+    const stateDropdown = document.getElementById('state');
+    const localGovtDropdown = document.getElementById('localgovt'); 
+  
+    const selectedState = stateDropdown.value;
+    
+    // Clear the local government dropdown
+    localGovtDropdown.innerHTML = '<option value="">Select Local Government</option>'; 
+  
+    // Populate the local government dropdown
+    if (selectedState) {
+      const localGovts = data.localgovts[selectedState];
+      for (const localGovt in localGovts) {
+        const option = document.createElement('option');
+        option.value = localGovt;
+        option.text = localGovts[localGovt];
+        localGovtDropdown.appendChild(option);
+      }
+    }
+  }
+        </script>
+    </body>
+
+  
+</html>
+
+
+
